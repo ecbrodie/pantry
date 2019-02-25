@@ -1,18 +1,43 @@
 import React from "react"
-import { Fab, Icon, Container, Body, Content, Title, Header } from "native-base"
+import {
+  Fab,
+  Icon,
+  Container,
+  Body,
+  Content,
+  Title,
+  Header,
+  Text,
+} from "native-base"
+import ShoppingListContext from "./ShoppingListContext"
+
+const fabHandler = addItem => () => {
+  console.log("Clicked the FAB")
+  addItem({})
+}
 
 export default function ShoppingList() {
   return (
-    <Container>
-      <Header>
-        <Body>
-          <Title>Shopping List</Title>
-        </Body>
-      </Header>
-      <Fab>
-        <Icon name="md-add-circle" />
-      </Fab>
-      <Content />
-    </Container>
+    <ShoppingListContext.Consumer>
+      {({ items, addItem }) => (
+        <Container>
+          <Header>
+            <Body>
+              <Title>Shopping List</Title>
+            </Body>
+          </Header>
+          <Fab onPress={fabHandler(addItem)}>
+            <Icon name="md-add-circle" />
+          </Fab>
+          <Content>
+            {items.length === 0 ? (
+              <Text>No Items</Text>
+            ) : (
+              <Text>Has Items</Text>
+            )}
+          </Content>
+        </Container>
+      )}
+    </ShoppingListContext.Consumer>
   )
 }
