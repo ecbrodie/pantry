@@ -8,11 +8,11 @@ import {
   Title,
   Header,
   Text,
+  View,
 } from "native-base"
 import ShoppingListContext from "./ShoppingListContext"
 
 const fabHandler = addItem => () => {
-  console.log("Clicked the FAB")
   addItem({})
 }
 
@@ -26,9 +26,6 @@ export default function ShoppingList() {
               <Title>Shopping List</Title>
             </Body>
           </Header>
-          <Fab onPress={fabHandler(addItem)}>
-            <Icon name="md-add-circle" />
-          </Fab>
           <Content>
             {items.length === 0 ? (
               <Text>No Items</Text>
@@ -36,6 +33,11 @@ export default function ShoppingList() {
               <Text>Has Items</Text>
             )}
           </Content>
+          <View style={{ flex: 1 }}>
+            <Fab onPress={fabHandler(addItem)}>
+              <Icon name="md-add-circle" />
+            </Fab>
+          </View>
         </Container>
       )}
     </ShoppingListContext.Consumer>
