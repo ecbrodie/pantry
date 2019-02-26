@@ -9,11 +9,7 @@ import {
   Header,
   Text,
 } from "native-base"
-import { Consumer } from "./ShoppingListContext"
-
-const fabHandler = addItem => () => {
-  addItem({})
-}
+import { Consumer, ShoppingListItem } from "./ShoppingListContext"
 
 export default function ShoppingList() {
   return (
@@ -34,7 +30,7 @@ export default function ShoppingList() {
                 <Text>Has Items</Text>
               )}
             </Content>
-            <Fab onPress={fabHandler(addItem)}>
+            <Fab onPress={() => addItem({} as ShoppingListItem)}>
               <Icon name="md-add-circle" />
             </Fab>
           </Container>

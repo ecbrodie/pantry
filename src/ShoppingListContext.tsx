@@ -1,11 +1,16 @@
 import React from "react"
 
-type ShoppingListItem = {
+export type ShoppingListItem = {
   name: string
   quantity: number
 }
 
-const ShoppingListContext = React.createContext({})
+type ShoppingListContextStore = {
+  items: ShoppingListItem[]
+  addItem: (item: ShoppingListItem) => void
+}
+
+const ShoppingListContext = React.createContext({} as ShoppingListContextStore)
 export const Consumer = ShoppingListContext.Consumer
 
 export class Provider extends React.Component {
