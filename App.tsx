@@ -2,6 +2,7 @@ import React from "react"
 import { Ionicons } from "@expo/vector-icons"
 import { Font } from "expo"
 import ShoppingList from "./src/ShoppingList"
+import { Provider } from "./src/ShoppingListContext"
 
 export default class App extends React.Component {
   state = {
@@ -22,6 +23,10 @@ export default class App extends React.Component {
     if (!this.state.fontLoaded) {
       return null
     }
-    return <ShoppingList />
+    return (
+      <Provider>
+        <ShoppingList />
+      </Provider>
+    )
   }
 }

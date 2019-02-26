@@ -8,9 +8,8 @@ import {
   Title,
   Header,
   Text,
-  View,
 } from "native-base"
-import ShoppingListContext from "./ShoppingListContext"
+import { Consumer } from "./ShoppingListContext"
 
 const fabHandler = addItem => () => {
   addItem({})
@@ -18,28 +17,29 @@ const fabHandler = addItem => () => {
 
 export default function ShoppingList() {
   return (
-    <ShoppingListContext.Consumer>
-      {({ items, addItem }) => (
-        <Container>
-          <Header>
-            <Body>
-              <Title>Shopping List</Title>
-            </Body>
-          </Header>
-          <Content>
-            {items.length === 0 ? (
-              <Text>No Items</Text>
-            ) : (
-              <Text>Has Items</Text>
-            )}
-          </Content>
-          <View style={{ flex: 1 }}>
+    <Consumer>
+      {({ items, addItem }) => {
+        console.log("TCL: ShoppingList -> items", items)
+        return (
+          <Container>
+            <Header>
+              <Body>
+                <Title>Shopping List</Title>
+              </Body>
+            </Header>
+            <Content>
+              {items.length === 0 ? (
+                <Text>No Items</Text>
+              ) : (
+                <Text>Has Items</Text>
+              )}
+            </Content>
             <Fab onPress={fabHandler(addItem)}>
               <Icon name="md-add-circle" />
             </Fab>
-          </View>
-        </Container>
-      )}
-    </ShoppingListContext.Consumer>
+          </Container>
+        )
+      }}
+    </Consumer>
   )
 }
