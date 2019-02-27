@@ -1,7 +1,7 @@
 import React from "react"
 import { Ionicons } from "@expo/vector-icons"
 import { Font } from "expo"
-import ShoppingList from "./src/ShoppingList"
+import ShoppingListPage from "./src/ShoppingListPage"
 import { Provider } from "./src/ShoppingListContext"
 
 export default class App extends React.Component {
@@ -25,7 +25,7 @@ export default class App extends React.Component {
     }
     return (
       <Provider>
-        <ShoppingList />
+        <ShoppingListPage />
       </Provider>
     )
   }

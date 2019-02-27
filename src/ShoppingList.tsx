@@ -1,41 +1,21 @@
 import React from "react"
-import {
-  Fab,
-  Icon,
-  Container,
-  Body,
-  Content,
-  Title,
-  Header,
-  Text,
-} from "native-base"
-import { Consumer, ShoppingListItem } from "./ShoppingListContext"
+import { ShoppingListItem } from "./ShoppingListContext"
+import { Text, List, ListItem } from "native-base"
 
-export default function ShoppingList() {
+type Props = {
+  items: ShoppingListItem[]
+}
+
+export default function ShoppingList({ items = [] }: Props) {
+  if (items.length === 0) return <Text>No Items</Text>
+
   return (
-    <Consumer>
-      {({ items, addItem }) => {
-        console.log("TCL: ShoppingList -> items", items)
-        return (
-          <Container>
-            <Header>
-              <Body>
-                <Title>Shopping List</Title>
-              </Body>
-            </Header>
-            <Content>
-              {items.length === 0 ? (
-                <Text>No Items</Text>
-              ) : (
-                <Text>Has Items</Text>
-              )}
-            </Content>
-            <Fab onPress={() => addItem({} as ShoppingListItem)}>
-              <Icon name="md-add-circle" />
-            </Fab>
-          </Container>
-        )
-      }}
-    </Consumer>
+    <List>
+      {items.map(({ name }) => (
+        <ListItem key={name}>
+          <Text>{name}</Text>
+        </ListItem>
+      ))}
+    </List>
   )
 }
