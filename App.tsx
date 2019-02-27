@@ -14,6 +14,8 @@ export default class App extends React.Component {
     // Expo sets as lowercase, but native-base expects PascalCase
     await Font.loadAsync({
       Ionicons: Ionicons.font.ionicons,
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
     })
 
     this.setState({ fontLoaded: true })
