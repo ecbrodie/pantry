@@ -6,34 +6,64 @@ type Props = {
   items: ShoppingListItem[]
   showNewItemRow: boolean
 }
+type State = {
+  newItemName?: string
+}
 
-export default function ShoppingList({
-  items = [],
-  showNewItemRow = false,
-}: Props) {
-  if (items.length === 0 && !showNewItemRow) return <Text>No Items</Text>
+export default class ShoppingList extends React.Component<Props, State> {
+  state = {
+    newItemName: "",
+  }
 
-  return (
-    <List>
-      {items.map(({ name }) => (
-        <ListItem key={name}>
-          <Text>{name}</Text>
-        </ListItem>
-      ))}
-      {showNewItemRow && (
-        <ListItem>
-          <View style={{ flexDirection: "row-reverse", alignItems: "center" }}>
-            <View style={{ flex: 0, paddingLeft: 10 }}>
-              <Icon name="ios-add-circle-outline" style={{ color: "green" }} />
+  submitItem = () => {
+    const newItemName = this.state.newItemName
+    this.setState({ newItemName: "" })
+
+    if (newItemName) {
+      console.log(`Submitted item with name ${newItemName}`)
+    }
+  }
+
+  render() {
+    const { items = [], showNewItemRow = false } = this.props
+    if (items.length === 0 && !showNewItemRow) return <Text>No Items</Text>
+
+    return (
+      <List>
+        {items.map(({ name }) => (
+          <ListItem key={name}>
+            <Text>{name}</Text>
+          </ListItem>
+        ))}
+        {showNewItemRow && (
+          <ListItem>
+            <View
+              style={{ flexDirection: "row-reverse", alignItems: "center" }}
+            >
+              <View style={{ flex: 0, paddingLeft: 10 }}>
+                <Icon
+                  name="ios-add-circle-outline"
+                  style={{ color: "green" }}
+                  onPress={this.submitItem}
+                />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Item regular>
+                  <Input
+                    autoCapitalize="none"
+                    value={this.state.newItemName}
+                    placeholder="New Item"
+                    onChangeText={value =>
+                      this.setState({ newItemName: value })
+                    }
+                    onSubmitEditing={this.submitItem}
+                  />
+                </Item>
+              </View>
             </View>
-            <View style={{ flex: 1 }}>
-              <Item regular>
-                <Input placeholder="New Item" />
-              </Item>
-            </View>
-          </View>
-        </ListItem>
-      )}
-    </List>
-  )
+          </ListItem>
+        )}
+      </List>
+    )
+  }
 }
