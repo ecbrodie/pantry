@@ -4,33 +4,49 @@ import faker from "faker"
 import { Consumer, ShoppingListItem, AddItemFunc } from "./ShoppingListContext"
 import ShoppingList from "./ShoppingList"
 
-const handleFab = (addItem: AddItemFunc) => () => {
+const createItem: () => ShoppingListItem = () => {
   // For now, just fake product names
   // Obviously, this will be replaced with an actual form
-  const item: ShoppingListItem = { name: faker.commerce.product(), quantity: 1 }
-  addItem(item)
+  return {
+    name: faker.commerce.product(),
+    quantity: 1,
+  }
 }
 
-export default function ShoppingListPage() {
-  return (
-    <Consumer>
-      {({ items, addItem }) => {
-        return (
-          <Container>
-            <Header>
-              <Body>
-                <Title>Shopping List</Title>
-              </Body>
-            </Header>
-            <Content>
-              <ShoppingList items={items} />
-            </Content>
-            <Fab onPress={handleFab(addItem)}>
-              <Icon name="md-add-circle" />
-            </Fab>
-          </Container>
-        )
-      }}
-    </Consumer>
-  )
+export default class ShoppingListPage extends React.Component {
+  state = { addingItem: false }
+
+  handleFab = (addItem: AddItemFunc) => {
+    return () => {
+      this.setState({ addingItem: !this.state.addingItem })
+      // addItem(createItem())
+    }
+  }
+
+  render() {
+    return (
+      <Consumer>
+        {({ items, addItem }) => {
+          return (
+            <Container>
+              <Header>
+                <Body>
+                  <Title>Shopping List</Title>
+                </Body>
+              </Header>
+              <Content>
+                <ShoppingList
+                  items={items}
+                  showNewItemRow={this.state.addingItem}
+                />
+              </Content>
+              <Fab onPress={this.handleFab(addItem)}>
+                <Icon name="md-add-circle" />
+              </Fab>
+            </Container>
+          )
+        }}
+      </Consumer>
+    )
+  }
 }
