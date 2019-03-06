@@ -51,7 +51,9 @@ export default class ShoppingList extends React.Component<Props, State> {
               <View style={{ flex: 1 }}>
                 <Item regular>
                   <Input
+                    autoFocus
                     autoCapitalize="none"
+                    blurOnSubmit={false}
                     value={this.state.newItemName}
                     placeholder="New Item"
                     onChangeText={value =>
