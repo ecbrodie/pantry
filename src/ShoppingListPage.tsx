@@ -14,7 +14,7 @@ export default class ShoppingListPage extends React.Component<{}, State> {
     const fabIconName = this.state.addingItem
       ? "md-checkmark-circle"
       : "md-add-circle"
-    const fabIconColor = this.state.addingItem ? "lawngreen" : defaultIconBlue
+    const fabIconColor = this.state.addingItem ? "green" : defaultIconBlue
 
     return (
       <Consumer>

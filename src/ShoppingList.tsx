@@ -10,15 +10,14 @@ type Props = {
 type State = {
   newItemName?: string
 }
+const INITIAL_STATE = { newItemName: "" }
 
 export default class ShoppingList extends React.Component<Props, State> {
-  state = {
-    newItemName: "",
-  }
+  state = INITIAL_STATE
 
   submitItem = () => {
-    const newItemName = this.state.newItemName
-    this.setState({ newItemName: "" })
+    const { newItemName } = this.state
+    this.setState(() => INITIAL_STATE)
 
     if (newItemName) {
       this.props.addItem({ name: newItemName })
