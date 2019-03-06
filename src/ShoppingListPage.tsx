@@ -1,29 +1,21 @@
 import React from "react"
 import { Fab, Icon, Container, Body, Content, Title, Header } from "native-base"
-import faker from "faker"
-import { Consumer, ShoppingListItem, AddItemFunc } from "./ShoppingListContext"
+import { Consumer } from "./ShoppingListContext"
 import ShoppingList from "./ShoppingList"
 
-const createItem: () => ShoppingListItem = () => {
-  // For now, just fake product names
-  // Obviously, this will be replaced with an actual form
-  return {
-    name: faker.commerce.product(),
-    quantity: 1,
-  }
-}
+const defaultIconBlue = "#5065F6"
 
-export default class ShoppingListPage extends React.Component {
+type State = { addingItem: boolean }
+
+export default class ShoppingListPage extends React.Component<{}, State> {
   state = { addingItem: false }
 
-  handleFab = (addItem: AddItemFunc) => {
-    return () => {
-      this.setState({ addingItem: !this.state.addingItem })
-      // addItem(createItem())
-    }
-  }
-
   render() {
+    const fabIconName = this.state.addingItem
+      ? "md-checkmark-circle"
+      : "md-add-circle"
+    const fabIconColor = this.state.addingItem ? "lawngreen" : defaultIconBlue
+
     return (
       <Consumer>
         {({ items, addItem }) => {
@@ -34,14 +26,22 @@ export default class ShoppingListPage extends React.Component {
                   <Title>Shopping List</Title>
                 </Body>
               </Header>
-              <Content>
+              <Content padder>
                 <ShoppingList
                   items={items}
                   showNewItemRow={this.state.addingItem}
+                  addItem={addItem}
                 />
               </Content>
-              <Fab onPress={this.handleFab(addItem)}>
-                <Icon name="md-add-circle" />
+              <Fab
+                onPress={() =>
+                  this.setState(({ addingItem }) => ({
+                    addingItem: !addingItem,
+                  }))
+                }
+                style={{ backgroundColor: fabIconColor }}
+              >
+                <Icon name={fabIconName} />
               </Fab>
             </Container>
           )

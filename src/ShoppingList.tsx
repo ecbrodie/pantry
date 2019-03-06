@@ -1,10 +1,11 @@
 import React from "react"
-import { ShoppingListItem } from "./ShoppingListContext"
+import { ShoppingListItem, AddItemFunc } from "./ShoppingListContext"
 import { Text, List, ListItem, Item, Input, Icon, View } from "native-base"
 
 type Props = {
   items: ShoppingListItem[]
   showNewItemRow: boolean
+  addItem: AddItemFunc
 }
 type State = {
   newItemName?: string
@@ -20,7 +21,7 @@ export default class ShoppingList extends React.Component<Props, State> {
     this.setState({ newItemName: "" })
 
     if (newItemName) {
-      console.log(`Submitted item with name ${newItemName}`)
+      this.props.addItem({ name: newItemName })
     }
   }
 
