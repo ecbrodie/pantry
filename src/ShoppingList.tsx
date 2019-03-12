@@ -7,65 +7,72 @@ type Props = {
   showNewItemRow: boolean
   addItem: AddItemFunc
 }
-type State = {
-  newItemName?: string
+export default function ShoppingList({
+  addItem,
+  items = [],
+  showNewItemRow = false,
+}: Props) {
+  if (items.length === 0 && !showNewItemRow) return <Text>No Items</Text>
+  return (
+    <List>
+      {items.map(({ name }) => (
+        <ListItem key={name}>
+          <Text>{name}</Text>
+        </ListItem>
+      ))}
+      {showNewItemRow && <NewItemRow addItem={addItem} />}
+    </List>
+  )
 }
-const INITIAL_STATE = { newItemName: "" }
 
-export default class ShoppingList extends React.Component<Props, State> {
-  state = INITIAL_STATE
+type NewItemRowProps = {
+  addItem: AddItemFunc
+}
+type NewItemRowState = {
+  newItemName: string
+}
+const DEFAULT_STATE = { newItemName: "" }
+class NewItemRow extends React.PureComponent<NewItemRowProps, NewItemRowState> {
+  state = DEFAULT_STATE
 
   submitItem = () => {
     const { newItemName } = this.state
-    this.setState(() => INITIAL_STATE)
 
     if (newItemName) {
-      this.props.addItem({ name: newItemName })
+      this.props.addItem({ name: newItemName }, () =>
+        this.setState(() => DEFAULT_STATE),
+      )
     }
   }
 
   render() {
-    const { items = [], showNewItemRow = false } = this.props
-    if (items.length === 0 && !showNewItemRow) return <Text>No Items</Text>
-
     return (
-      <List>
-        {items.map(({ name }) => (
-          <ListItem key={name}>
-            <Text>{name}</Text>
-          </ListItem>
-        ))}
-        {showNewItemRow && (
-          <ListItem>
-            <View
-              style={{ flexDirection: "row-reverse", alignItems: "center" }}
-            >
-              <View style={{ flex: 0, paddingLeft: 10 }}>
-                <Icon
-                  name="ios-add-circle-outline"
-                  style={{ color: "green" }}
-                  onPress={this.submitItem}
-                />
-              </View>
-              <View style={{ flex: 1 }}>
-                <Item regular>
-                  <Input
-                    autoFocus
-                    autoCapitalize="none"
-                    blurOnSubmit={false}
-                    value={this.state.newItemName}
-                    placeholder="New Item"
-                    onChangeText={value =>
-                      this.setState({ newItemName: value })
-                    }
-                    onSubmitEditing={this.submitItem}
-                  />
-                </Item>
-              </View>
-            </View>
-          </ListItem>
-        )}
-      </List>
+      <ListItem>
+        <View style={{ flexDirection: "row-reverse", alignItems: "center" }}>
+          <View style={{ flex: 0, paddingLeft: 10 }}>
+            <Icon
+              name="ios-add-circle-outline"
+              style={{ color: "green" }}
+              onPress={this.submitItem}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Item regular>
+              <Input
+                autoFocus
+                autoCapitalize="none"
+                blurOnSubmit={false}
+                placeholder="New Item"
+                value={this.state.newItemName}
+                onChangeText={value =>
+                  this.setState(() => ({ newItemName: value }))
+                }
+                onSubmitEditing={this.submitItem}
+              />
+            </Item>
+          </View>
+        </View>
+      </ListItem>
     )
   }
 }

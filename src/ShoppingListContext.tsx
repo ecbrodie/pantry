@@ -5,7 +5,11 @@ export interface ShoppingListItem {
   quantity?: number
 }
 
-export type AddItemFunc = (item: ShoppingListItem) => void
+// TODO: Explore using a promise instead of a callback?
+export type AddItemFunc = (
+  item: ShoppingListItem,
+  onSuccess: () => void,
+) => void
 
 type ShoppingListContextStore = {
   items: ShoppingListItem[]
@@ -24,8 +28,19 @@ export class Provider extends React.Component<{}, State> {
     items: [],
   }
 
-  addItem = (item: ShoppingListItem) => {
-    this.setState(({ items }) => ({ items: [...items, item] }))
+  addItem: AddItemFunc = (item, onSuccess) => {
+    let alreadyHasItem: boolean
+
+    this.setState(
+      state => {
+        const { items } = state
+        alreadyHasItem = items.some(({ name }) => name === item.name)
+        return alreadyHasItem ? state : { items: [...items, item] }
+      },
+      () => {
+        if (!alreadyHasItem) onSuccess()
+      },
+    )
   }
 
   render() {
