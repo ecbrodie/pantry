@@ -10,10 +10,12 @@
   "dependencies": {
     "@expo/vector-icons": "^9.0.0",
     "@types/expo__vector-icons": "^9.0.1",
+    "@types/uuid": "^3.4.4",
     "expo": "^32.0.0",
     "native-base": "^2.11.0",
     "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@types/expo": "^31.0.7",
