@@ -1,4 +1,5 @@
 import React from "react"
+import { Toast } from "native-base"
 
 export interface ShoppingListItem {
   name: string
@@ -38,7 +39,17 @@ export class Provider extends React.Component<{}, State> {
         return alreadyHasItem ? state : { items: [...items, item] }
       },
       () => {
-        if (!alreadyHasItem) onSuccess()
+        if (!alreadyHasItem) {
+          onSuccess()
+        } else {
+          Toast.show({
+            buttonStyle: { backgroundColor: "slategray" },
+            buttonText: "Dismiss",
+            duration: 20000,
+            text: "Cannot add duplicate item",
+            type: "warning",
+          })
+        }
       },
     )
   }

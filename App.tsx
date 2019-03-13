@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons"
 import { Font } from "expo"
 import ShoppingListPage from "./src/ShoppingListPage"
 import { Provider } from "./src/ShoppingListContext"
+import { Root } from "native-base"
 
 export default class App extends React.Component {
   state = {
@@ -26,9 +27,11 @@ export default class App extends React.Component {
       return null
     }
     return (
-      <Provider>
-        <ShoppingListPage />
-      </Provider>
+      <Root>
+        <Provider>
+          <ShoppingListPage />
+        </Provider>
+      </Root>
     )
   }
 }
