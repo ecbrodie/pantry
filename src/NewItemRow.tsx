@@ -10,7 +10,7 @@ type State = {
 }
 const DEFAULT_STATE = { newItemName: "" }
 
-export class NewItemRow extends React.PureComponent<Props, State> {
+export default class NewItemRow extends React.PureComponent<Props, State> {
   state = DEFAULT_STATE
 
   submitItem = () => {

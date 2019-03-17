@@ -3,7 +3,8 @@ import { FlatList } from "react-native"
 import { Text, List, ListItem } from "native-base"
 import uuidv4 from "uuid/v4"
 import { ShoppingListItem, AddItemFunc } from "./ShoppingListContext"
-import { NewItemRow } from "./NewItemRow"
+import NewItemRow from "./NewItemRow"
+import ItemRow from "./ItemRow"
 
 type Props = {
   items: ShoppingListItem[]
@@ -32,9 +33,7 @@ export default function ShoppingList({
         key === EXTRA_ROW_KEY ? (
           <NewItemRow addItem={addItem} />
         ) : (
-          <ListItem>
-            <Text>{key}</Text>
-          </ListItem>
+          <ItemRow name={key} />
         )
       }
     />
