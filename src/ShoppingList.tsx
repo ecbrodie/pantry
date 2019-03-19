@@ -6,7 +6,7 @@ import { ShoppingListItem, AddItemFunc } from "./ShoppingListContext"
 import NewItemRow from "./NewItemRow"
 import ItemRow from "./ItemRow"
 
-type Props = {
+interface Props {
   items: ShoppingListItem[]
   showNewItemRow: boolean
   addItem: AddItemFunc

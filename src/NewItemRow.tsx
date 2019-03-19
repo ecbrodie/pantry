@@ -2,10 +2,10 @@ import React from "react"
 import { AddItemFunc } from "./ShoppingListContext"
 import { ListItem, Item, Input, Icon, View } from "native-base"
 
-type Props = {
+interface Props {
   addItem: AddItemFunc
 }
-type State = {
+interface State {
   newItemName: string
 }
 const DEFAULT_STATE = { newItemName: "" }

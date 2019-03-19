@@ -5,7 +5,9 @@ import ShoppingList from "./ShoppingList"
 
 const defaultIconBlue = "#5065F6"
 
-type State = { addingItem: boolean }
+interface State {
+  addingItem: boolean
+}
 
 export default class ShoppingListPage extends React.Component<{}, State> {
   state = { addingItem: false }
