@@ -45,7 +45,7 @@ export class Provider extends React.Component<{}, State> {
           Toast.show({
             buttonStyle: { backgroundColor: "slategray" },
             buttonText: "Dismiss",
-            duration: 20000,
+            duration: 2000,
             text: "Cannot add duplicate item",
             type: "warning",
           })
