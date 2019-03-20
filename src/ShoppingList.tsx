@@ -1,6 +1,6 @@
 import React from "react"
 import { FlatList } from "react-native"
-import { Text, List, ListItem } from "native-base"
+import { Text } from "native-base"
 import uuidv4 from "uuid/v4"
 import { ShoppingListItem, AddItemFunc } from "./ShoppingListContext"
 import NewItemRow from "./NewItemRow"
