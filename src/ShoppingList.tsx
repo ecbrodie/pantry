@@ -2,14 +2,19 @@ import React from "react"
 import { FlatList } from "react-native"
 import { Text } from "native-base"
 import uuidv4 from "uuid/v4"
-import { ShoppingListItem, AddItemFunc } from "./ShoppingListContext"
+import {
+  ShoppingListItem,
+  AddItemFunc,
+  RemoveItemFunc,
+} from "./ShoppingListContext"
 import NewItemRow from "./NewItemRow"
 import ItemRow from "./ItemRow"
 
 interface Props {
-  items: ShoppingListItem[]
-  showNewItemRow: boolean
   addItem: AddItemFunc
+  items: ShoppingListItem[]
+  removeItem: RemoveItemFunc
+  showNewItemRow: boolean
 }
 
 const EXTRA_ROW_KEY = uuidv4()
@@ -17,6 +22,7 @@ const EXTRA_ROW_KEY = uuidv4()
 export default function ShoppingList({
   addItem,
   items = [],
+  removeItem,
   showNewItemRow = false,
 }: Props) {
   if (items.length === 0 && !showNewItemRow) return <Text>No Items</Text>
@@ -33,7 +39,7 @@ export default function ShoppingList({
         key === EXTRA_ROW_KEY ? (
           <NewItemRow addItem={addItem} />
         ) : (
-          <ItemRow name={key} />
+          <ItemRow name={key} removeItem={removeItem} />
         )
       }
     />

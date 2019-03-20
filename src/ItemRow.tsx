@@ -1,11 +1,13 @@
 import React from "react"
 import { ListItem, Text, View, Icon } from "native-base"
+import { RemoveItemFunc } from "./ShoppingListContext"
 
 interface Props {
   name: string
+  removeItem: RemoveItemFunc
 }
 
-export default function ItemRow({ name }: Props) {
+export default function ItemRow({ name, removeItem }: Props) {
   return (
     <ListItem>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -15,7 +17,7 @@ export default function ItemRow({ name }: Props) {
         <View style={{ flex: 0 }}>
           <Icon
             name="md-close-circle-outline"
-            onPress={() => console.log("PRESSED")}
+            onPress={() => removeItem(name)}
             style={{ color: "dimgrey" }}
           />
         </View>

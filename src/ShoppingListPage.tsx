@@ -20,7 +20,7 @@ export default class ShoppingListPage extends React.Component<{}, State> {
 
     return (
       <Consumer>
-        {({ items, addItem }) => {
+        {({ items, addItem, removeItem }) => {
           return (
             <Container>
               <Header>
@@ -30,9 +30,10 @@ export default class ShoppingListPage extends React.Component<{}, State> {
               </Header>
               <Content padder>
                 <ShoppingList
-                  items={items}
-                  showNewItemRow={this.state.addingItem}
                   addItem={addItem}
+                  items={items}
+                  removeItem={removeItem}
+                  showNewItemRow={this.state.addingItem}
                 />
               </Content>
               <Fab

@@ -12,15 +12,18 @@ export type AddItemFunc = (
   onSuccess: () => void,
 ) => void
 
-type ShoppingListContextStore = {
+export type RemoveItemFunc = (name: string) => void
+
+interface ShoppingListContextStore {
   items: ShoppingListItem[]
   addItem: AddItemFunc
+  removeItem: RemoveItemFunc
 }
 
 const ShoppingListContext = React.createContext({} as ShoppingListContextStore)
 export const Consumer = ShoppingListContext.Consumer
 
-type State = {
+interface State {
   items: ShoppingListItem[]
 }
 
@@ -54,12 +57,22 @@ export class Provider extends React.Component<{}, State> {
     )
   }
 
+  removeItem: RemoveItemFunc = itemNameToRemove => {
+    this.setState(({ items }) => {
+      const filteredItems = items.filter(
+        ({ name }) => name !== itemNameToRemove,
+      )
+      return { items: filteredItems }
+    })
+  }
+
   render() {
     return (
       <ShoppingListContext.Provider
         value={{
           items: this.state.items,
           addItem: this.addItem,
+          removeItem: this.removeItem,
         }}
       >
         {this.props.children}
