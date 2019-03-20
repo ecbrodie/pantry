@@ -35,6 +35,7 @@ export default function ShoppingList({
   return (
     <FlatList
       data={itemsToRender}
+      keyboardShouldPersistTaps="always"
       renderItem={({ item: { key } }) =>
         key === EXTRA_ROW_KEY ? (
           <NewItemRow addItem={addItem} />
