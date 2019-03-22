@@ -1,5 +1,8 @@
 import React from "react"
 import { Toast } from "native-base"
+import { AsyncStorage } from "react-native"
+
+const CACHE_KEY = "SHOPPING_LIST_CACHE"
 
 export interface ShoppingListItem {
   name: string
@@ -25,21 +28,22 @@ export const Consumer = ShoppingListContext.Consumer
 
 interface State {
   items: ShoppingListItem[]
+  ready: boolean
 }
 
 export class Provider extends React.Component<{}, State> {
   state = {
     items: [],
+    ready: false,
   }
 
   addItem: AddItemFunc = (item, onSuccess) => {
     let alreadyHasItem: boolean
 
     this.setState(
-      state => {
-        const { items } = state
+      ({ items }) => {
         alreadyHasItem = items.some(({ name }) => name === item.name)
-        return alreadyHasItem ? state : { items: [...items, item] }
+        return alreadyHasItem ? null : { items: [...items, item] }
       },
       () => {
         if (!alreadyHasItem) {
@@ -66,11 +70,36 @@ export class Provider extends React.Component<{}, State> {
     })
   }
 
+  getCacheData = async () => {
+    const itemsJson = (await AsyncStorage.getItem(CACHE_KEY)) || "[]"
+    return JSON.parse(itemsJson) as ShoppingListItem[]
+  }
+
+  setCacheDate = async (items: ShoppingListItem[]) => {
+    await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(items))
+  }
+
+  componentDidMount() {
+    this.getCacheData().then(items =>
+      this.setState(() => ({
+        items,
+        ready: true,
+      })),
+    )
+  }
+
+  componentDidUpdate() {
+    const { items } = this.state
+    this.setCacheDate(items)
+  }
+
   render() {
+    const { items, ready } = this.state
+    if (!ready) return null
     return (
       <ShoppingListContext.Provider
         value={{
-          items: this.state.items,
+          items,
           addItem: this.addItem,
           removeItem: this.removeItem,
         }}
