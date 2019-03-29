@@ -1,6 +1,6 @@
 import React from "react"
 import { Toast } from "native-base"
-import { AsyncStorage } from "react-native"
+import { AsyncStorage, Alert, AlertButton } from "react-native"
 
 const CACHE_KEY = "SHOPPING_LIST_CACHE"
 
@@ -21,6 +21,7 @@ interface ShoppingListContextStore {
   items: ShoppingListItem[]
   addItem: AddItemFunc
   removeItem: RemoveItemFunc
+  removeAllItems: () => void
 }
 
 const ShoppingListContext = React.createContext({} as ShoppingListContextStore)
@@ -70,6 +71,22 @@ export class Provider extends React.Component<{}, State> {
     })
   }
 
+  removeAllItems = () => {
+    const cancelButton: AlertButton = {
+      text: "Cancel",
+    }
+    const okayButton: AlertButton = {
+      text: "OK",
+      onPress: () => this.setState(() => ({ items: [] })),
+    }
+    Alert.alert(
+      "Clear all items?",
+      "This can't be undone.",
+      [cancelButton, okayButton],
+      { cancelable: false },
+    )
+  }
+
   getCacheData = async () => {
     const itemsJson = (await AsyncStorage.getItem(CACHE_KEY)) || "[]"
     return JSON.parse(itemsJson) as ShoppingListItem[]
@@ -102,6 +119,7 @@ export class Provider extends React.Component<{}, State> {
           items,
           addItem: this.addItem,
           removeItem: this.removeItem,
+          removeAllItems: this.removeAllItems,
         }}
       >
         {this.props.children}

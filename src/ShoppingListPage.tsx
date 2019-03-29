@@ -1,5 +1,16 @@
 import React from "react"
-import { Fab, Icon, Container, Body, Content, Title, Header } from "native-base"
+import {
+  Fab,
+  Icon,
+  Container,
+  Body,
+  Content,
+  Title,
+  Header,
+  Right,
+  Text,
+  Button,
+} from "native-base"
 import { Consumer } from "./ShoppingListContext"
 import ShoppingList from "./ShoppingList"
 
@@ -20,13 +31,18 @@ export default class ShoppingListPage extends React.Component<{}, State> {
 
     return (
       <Consumer>
-        {({ items, addItem, removeItem }) => {
+        {({ items, addItem, removeItem, removeAllItems }) => {
           return (
             <Container>
               <Header>
                 <Body>
                   <Title>Shopping List</Title>
                 </Body>
+                <Right>
+                  <Button transparent onPress={removeAllItems}>
+                    <Text>Clear All</Text>
+                  </Button>
+                </Right>
               </Header>
               <Content padder>
                 <ShoppingList
