@@ -39,7 +39,11 @@ export default class ShoppingListPage extends React.Component<{}, State> {
                   <Title>Shopping List</Title>
                 </Body>
                 <Right>
-                  <Button transparent onPress={removeAllItems}>
+                  <Button
+                    transparent
+                    disabled={items.length === 0}
+                    onPress={removeAllItems}
+                  >
                     <Text>Clear All</Text>
                   </Button>
                 </Right>
