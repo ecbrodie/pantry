@@ -48,7 +48,7 @@ export default class ShoppingListPage extends React.Component<{}, State> {
                   </Button>
                 </Right>
               </Header>
-              <Content padder>
+              <Content enableOnAndroid padder>
                 <ShoppingList
                   addItem={addItem}
                   items={items}

@@ -1,5 +1,5 @@
 import React from "react"
-import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view"
+import { FlatList } from "react-native"
 import { Text } from "native-base"
 import uuidv4 from "uuid/v4"
 import {
@@ -27,23 +27,14 @@ export default function ShoppingList({
 }: Props) {
   if (items.length === 0 && !showNewItemRow) return <Text>No Items</Text>
 
-  const keyedItems = items.map(item => ({
-    ...item,
-    key: item.name,
-  }))
+  const keyedItems = items.map(item => ({ ...item, key: item.name }))
   const itemsToRender = showNewItemRow
     ? [...keyedItems, { key: EXTRA_ROW_KEY }]
     : keyedItems
 
-  // TODO: Need to set windowSoftInputMode = "adjustPan" in the android manifest XML
-  // This cannot be done until this app ejects from Expo
-  // Until then, a number row on a keyboard may hide the NewItemRow
-  // SEE: https://github.com/APSL/react-native-keyboard-aware-scroll-view#android-support
-
   return (
-    <KeyboardAwareFlatList
+    <FlatList
       data={itemsToRender}
-      enableOnAndroid
       keyboardShouldPersistTaps="always"
       renderItem={({ item: { key } }) =>
         key === EXTRA_ROW_KEY ? (
