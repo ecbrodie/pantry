@@ -28,5 +28,6 @@
   "jest": {
     "preset": "jest-expo"
   },
-  "private": true
+  "private": true,
+  "types": "index.d.ts"
 }
