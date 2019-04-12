@@ -4,6 +4,7 @@ import { Font } from "expo"
 import ShoppingListPage from "./src/ShoppingListPage"
 import { Provider } from "./src/ShoppingListContext"
 import { Root } from "native-base"
+import "./src/firebase"
 
 export default class App extends React.Component {
   state = {
