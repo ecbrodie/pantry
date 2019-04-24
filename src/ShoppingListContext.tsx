@@ -1,8 +1,9 @@
 import React from "react"
 import { Toast } from "native-base"
-import { AsyncStorage, Alert, AlertButton } from "react-native"
+import { Alert, AlertButton } from "react-native"
+import { DB } from "./firebase"
 
-const CACHE_KEY = "SHOPPING_LIST_CACHE"
+const docRef = DB.collection("shoppingLists").doc("MAIN")
 
 export interface ShoppingListItem {
   name: string
@@ -88,12 +89,12 @@ export class Provider extends React.Component<{}, State> {
   }
 
   getCacheData = async () => {
-    const itemsJson = (await AsyncStorage.getItem(CACHE_KEY)) || "[]"
-    return JSON.parse(itemsJson) as ShoppingListItem[]
+    const document = await docRef.get()
+    return document.exists ? document.data()!.items : []
   }
 
   setCacheDate = async (items: ShoppingListItem[]) => {
-    await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(items))
+    await docRef.set({ items })
   }
 
   componentDidMount() {
