@@ -11,20 +11,20 @@
     "@expo/vector-icons": "^9.0.0",
     "@types/expo__vector-icons": "^9.0.1",
     "@types/uuid": "^3.4.4",
-    "expo": "^32.0.0",
+    "expo": "^34.0.1",
     "firebase": "^5.9.4",
     "native-base": "^2.11.0",
-    "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@types/expo": "^31.0.7",
-    "@types/react": "^16.7.18",
-    "jest-expo": "^32.0.0",
-    "prettier": "1.15.3",
-    "react-native-typescript-transformer": "^1.2.11",
-    "typescript": "^3.2.2"
+    "@types/expo": "^32.0",
+    "@types/react": "^16.8",
+    "babel-preset-expo": "6.0.0",
+    "jest-expo": "^34.0.1",
+    "prettier": "1.18.2",
+    "typescript": "^3.5.3"
   },
   "jest": {
     "preset": "jest-expo"
