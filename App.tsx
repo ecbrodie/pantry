@@ -1,6 +1,6 @@
 import React from "react"
 import { Ionicons } from "@expo/vector-icons"
-import { Font } from "expo"
+import * as Font from 'expo-font';
 import ShoppingListPage from "./src/ShoppingListPage"
 import { Provider } from "./src/ShoppingListContext"
 import { Root } from "native-base"
