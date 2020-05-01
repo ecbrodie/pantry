@@ -13,7 +13,7 @@
     "@types/uuid": "^3.4.4",
     "expo": "^37.0.0",
     "expo-font": "~8.1.0",
-    "firebase": "7.9.0",
+    "firebase": "^7.9.0",
     "native-base": "^2.11.0",
     "react": "16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
