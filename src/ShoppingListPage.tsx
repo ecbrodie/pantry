@@ -4,7 +4,6 @@ import {
   Icon,
   Container,
   Body,
-  Content,
   Title,
   Header,
   Right,
@@ -40,14 +39,12 @@ export default function ShoppingListPage() {
                 </Button>
               </Right>
             </Header>
-            <Content enableOnAndroid padder>
-              <ShoppingList
-                addItem={addItem}
-                items={items}
-                removeItem={removeItem}
-                showNewItemRow={addingItem}
-              />
-            </Content>
+            <ShoppingList
+              addItem={addItem}
+              items={items}
+              removeItem={removeItem}
+              showNewItemRow={addingItem}
+            />
             <Fab
               onPress={() => setAddingItem(!addingItem)}
               style={{ backgroundColor: fabIconColor }}

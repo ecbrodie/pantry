@@ -3,10 +3,10 @@ import { FlatList } from "react-native"
 import { Text } from "native-base"
 import uuidv4 from "uuid/v4"
 import {
-  ShoppingListItem,
   AddItemFunc,
   RemoveItemFunc,
 } from "./ShoppingListContext"
+import { ShoppingListItem } from "./types"
 import NewItemRow from "./NewItemRow"
 import ItemRow from "./ItemRow"
 
@@ -36,6 +36,7 @@ export default function ShoppingList({
     <FlatList
       data={itemsToRender}
       keyboardShouldPersistTaps="always"
+      nestedScrollEnabled
       renderItem={({ item: { key } }) =>
         key === EXTRA_ROW_KEY ? (
           <NewItemRow addItem={addItem} />
