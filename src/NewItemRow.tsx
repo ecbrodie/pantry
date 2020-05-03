@@ -9,7 +9,7 @@ export default function NewItemRow({ addItem }: Props) {
   const [newItemName, setNewItemName] = useState("")
   const submitItem = () => {
     if (newItemName) {
-      addItem({ name: newItemName }, () => setNewItemName(""))
+      addItem({ name: newItemName }).then(() => setNewItemName(""))
     }
   }
 

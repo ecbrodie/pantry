@@ -1,5 +1,6 @@
 import firebase from "firebase"
 import "@firebase/firestore"
+import { ShoppingListItem } from "./types"
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -12,4 +13,14 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-export const DB = firebase.firestore()
+const DB = firebase.firestore()
+const docRef = DB.collection("shoppingLists").doc("MAIN")
+
+export const getCacheData = async (): Promise<ShoppingListItem[]> => {
+  const document = await docRef.get()
+  return document.exists ? document.data()!.items : []
+}
+
+export const setCacheData = async (items: ShoppingListItem[]) => {
+  await docRef.set({ items })
+}
