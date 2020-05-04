@@ -26,6 +26,9 @@
     },
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      "firebaseKey": "FIREBASE_KEY"
     }
   }
 }

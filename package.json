@@ -12,6 +12,7 @@
     "@types/expo__vector-icons": "^9.0.1",
     "@types/uuid": "^3.4.4",
     "expo": "^37.0.0",
+    "expo-constants": "~9.0.0",
     "expo-font": "~8.1.0",
     "firebase": "7.9.0",
     "native-base": "^2.11.0",

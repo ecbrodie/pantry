@@ -6,3 +6,6 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
+
+# app.json is private and is to be copied from app.example.json
+app.json

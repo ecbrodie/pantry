@@ -1,10 +1,11 @@
 import firebase from "firebase"
 import "@firebase/firestore"
+import Constants from "expo-constants"
 import { ShoppingListItem } from "./types"
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyCO8ZB--ZPVh6_jv8FcwhEKM_cA4nvBesc",
+  apiKey: Constants.manifest.extra.firebaseKey,
   authDomain: "ecbrodie-pantry-dev.firebaseapp.com",
   databaseURL: "https://ecbrodie-pantry-dev.firebaseio.com",
   projectId: "ecbrodie-pantry-dev",
